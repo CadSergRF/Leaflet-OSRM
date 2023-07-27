@@ -15,7 +15,8 @@ export const currentRouteSlice = createSlice({
       state.isLoading = true;
     },
     addCurrentRoute: (state, action) => {
-      state.route = action.payload
+      const swithCoordinates = action.payload.map((item) => [item[1], item[0]])
+      state.route = swithCoordinates
       state.isLoading = false
     }
   },

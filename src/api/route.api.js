@@ -8,12 +8,9 @@ export function getRoute(points) {
   const urlReqPoints = '/route/v1/driving/' +
     routePoins +
     '?' +
-    'alternatives=false' +
-    '&steps=false' +
+    'steps=true' +
     '&geometries=geojson' +
-    '&overview=simplified' +
-    '&overview=simplified' +
-    '&annotations=false' +
+    '&overview=full' +
     '&generate_hints=false' +
     '&skip_waypoints=true'
 

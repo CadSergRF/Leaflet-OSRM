@@ -1,40 +1,50 @@
 import { Icon } from 'leaflet'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet'
 import marker from '../images/map_marker_icon.svg'
 import { useSelector } from 'react-redux'
 
+import { pathConst, markers } from '../helpers/constatns'
+
 const MapComponent = () => {
 
-  const [position, setPosition] = useState([59.983762, 30.311365])
+  const currentPoints = useSelector(state => state.currentRoute.points)
+  const currentState = useSelector(state => state.currentRoute)
 
-  let currentPoints = useSelector(state => state.currentRoute.points)
-
-  let currentState = useSelector(state => state.currentRoute)
+  const [route, setRoute] = useState([]); // Массив точек polyline
+  const [markerPoint, setMarkerPoint] = useState([]); // Массив маркеров
 
   console.log(currentState.route)
 
-  let polyline = currentState.route;
+  console.log(Boolean(currentState.route))
 
-  // if (currentState.points) {
-  //   setPosition(currentState.points[0].geotag)
-  // }
+  useEffect(() => {
+    setRoute(currentState.route);
+
+  }, [currentState.route])
+
+
+
+  const greenOptions = { color: 'green' }
+
+  const position = [59.983762, 30.311365]
 
   const customMarker = new Icon({
     iconUrl: marker,
-    iconSize: [40, 40]
+    iconSize: [100, 100]
   })
 
   return (
     <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {/* {currentPoints.map((item, index) => {
         console.log(item[index].info)
       })} */}
-      <Polyline pathOptions={{ color: 'red' }} positions={polyline} />
+      <Marker position={position} icon={customMarker}></Marker>
+      <Polyline pathOptions={greenOptions} positions={route} />
     </MapContainer >
   )
 }
