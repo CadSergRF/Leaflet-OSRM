@@ -1,19 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+const initialState = {
+  points: [],
+  route: [],
+  isLoading: false
+}
 
 export const currentRouteSlice = createSlice({
   name: 'currentRoute',
   initialState,
   reducers: {
-    addCurrentRoute: (state, action) => {
-      console.log('добавить маршрут' + action.payload)
-      state = [action.payload]
-      console.log('Текущий роут' + typeof (state))
+    addCurrentPoints: (state, action) => {
+      state.points = action.payload
+      state.isLoading = true;
     },
+    addCurrentRoute: (state, action) => {
+      state.route = action.payload
+      state.isLoading = false
+    }
   },
 })
 
-export const { addCurrentRoute } = currentRouteSlice.actions
+export const { addCurrentPoints, addCurrentRoute } = currentRouteSlice.actions
 
 export default currentRouteSlice.reducer

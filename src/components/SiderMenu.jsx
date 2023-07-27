@@ -1,18 +1,16 @@
 import React from 'react'
 import { Layout, Menu } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCurrentRoute } from '../reducers/currentRoute.slice'
+import { addCurrentPoints } from '../reducers/currentRoute.slice'
 const { Sider } = Layout;
 
 const SiderMenu = () => {
 
   const routesList = useSelector(state => state.routes)
-  const currentRoute = useSelector(state => state.currentRoute)
   const dispatch = useDispatch();
-  console.log(routesList)
 
-  const chooseRoute = (route) => {
-    dispatch(addCurrentRoute(route))
+  const chooseRoute = (points) => {
+    dispatch(addCurrentPoints(points))
   }
 
   const onClick = (e) => {
