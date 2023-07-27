@@ -1,21 +1,33 @@
 import React from 'react'
 import { Layout, Menu } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCurrentRoute } from '../reducers/currentRoute.slice'
 const { Sider } = Layout;
 
 const SiderMenu = () => {
 
-  const routesList = useSelector(state => state.routes.routesList)
-  console.log(routesList[0])
+  const routesList = useSelector(state => state.routes)
+  const currentRoute = useSelector(state => state.currentRoute)
+  const dispatch = useDispatch();
+  console.log(routesList)
+
+  const chooseRoute = (route) => {
+    dispatch(addCurrentRoute(route))
+  }
+
+  const onClick = (e) => {
+    chooseRoute(routesList[e.key - 1])
+  }
 
   return (
     <Sider>
       <Menu
-        theme='dark'
+        theme='light'
         mode='inline'
+        onClick={onClick}
         items={routesList.map((route, index) => ({
           key: String(index + 1),
-          label: `Маршрут ${index + 1}`,
+          label: `Маршрут ${route[index].info}`,
         })
         )}
       />
