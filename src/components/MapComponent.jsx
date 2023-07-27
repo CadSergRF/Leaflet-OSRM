@@ -1,6 +1,6 @@
 import { Icon } from 'leaflet'
 import React, { useState, useEffect } from 'react'
-import { MapContainer, Marker, Polyline, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet'
 import marker from '../images/map_marker_icon.svg'
 import { useSelector } from 'react-redux'
 
@@ -14,14 +14,16 @@ const MapComponent = () => {
   const [route, setRoute] = useState([]); // Массив точек polyline
   const [markerPoint, setMarkerPoint] = useState([]); // Массив маркеров
 
-  console.log(currentState.route)
-
-  console.log(Boolean(currentState.route))
+  currentPoints.map((item, index) => {
+    console.log(item.geotag)
+    console.log(index)
+  })
 
   useEffect(() => {
     setRoute(currentState.route);
-
+    setMarkerPoint(currentPoints);
   }, [currentState.route])
+
 
 
 
@@ -40,10 +42,13 @@ const MapComponent = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* {currentPoints.map((item, index) => {
-        console.log(item[index].info)
-      })} */}
-      <Marker position={position} icon={customMarker}></Marker>
+      {markerPoint.map((item, index) => (
+        <Marker key={index} position={item.geotag}>
+          <Popup>{`Точка ${index + 1}`}</Popup>
+        </Marker>
+      ))}
+      <Marker position={position}></Marker>
+      {/* <Marker position={position} icon={customMarker}></Marker> */}
       <Polyline pathOptions={greenOptions} positions={route} />
     </MapContainer >
   )
