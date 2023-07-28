@@ -14,7 +14,5 @@ export function getRoute(points) {
     '&generate_hints=false' +
     '&skip_waypoints=true'
 
-  console.log(urlReqPoints)
-
   return makeRequest(urlReqPoints, 'GET', undefined);
 }

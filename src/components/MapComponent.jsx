@@ -1,55 +1,30 @@
-import { Icon } from 'leaflet'
-import React, { useState, useEffect } from 'react'
-import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet'
-import marker from '../images/map_marker_icon.svg'
+import React from 'react'
+import { MapContainer, Polyline, TileLayer, ZoomControl } from 'react-leaflet'
 import { useSelector } from 'react-redux'
-
-import { pathConst, markers } from '../helpers/constatns'
+import AutoZoom from './AutoZoom'
+import CustomMarker from './CustomMarker'
 
 const MapComponent = () => {
 
-  const currentPoints = useSelector(state => state.currentRoute.points)
-  const currentState = useSelector(state => state.currentRoute)
+  const currentPoints = useSelector(state => state.currentRoute.points) // Маркеры
+  const currentStateRoute = useSelector(state => state.currentRoute.route) // Маршрут
+  const markerArr = currentPoints.map(item => item.geotag) // Координаты маркеров
 
-  const [route, setRoute] = useState([]); // Массив точек polyline
-  const [markerPoint, setMarkerPoint] = useState([]); // Массив маркеров
-
-  currentPoints.map((item, index) => {
-    console.log(item.geotag)
-    console.log(index)
-  })
-
-  useEffect(() => {
-    setRoute(currentState.route);
-    setMarkerPoint(currentPoints);
-  }, [currentState.route])
-
-
-
-
-  const greenOptions = { color: 'green' }
-
-  const position = [59.983762, 30.311365]
-
-  const customMarker = new Icon({
-    iconUrl: marker,
-    iconSize: [100, 100]
-  })
+  const greenOptions = { color: 'green' } // Стиль отрисовки маршрута
+  const position = [59.983762, 30.311365] // Начальные координаты центра отрисовки карты
 
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
+    <MapContainer bounds={markerArr} center={position} zoom={13} scrollWheelZoom={true} zoomControl={false} >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {markerPoint.map((item, index) => (
-        <Marker key={index} position={item.geotag}>
-          <Popup>{`Точка ${index + 1}`}</Popup>
-        </Marker>
+      {currentPoints.map((item, index) => (
+        <CustomMarker key={index} item={item} index={index} />
       ))}
-      <Marker position={position}></Marker>
-      {/* <Marker position={position} icon={customMarker}></Marker> */}
-      <Polyline pathOptions={greenOptions} positions={route} />
+      <Polyline pathOptions={greenOptions} positions={currentStateRoute} />
+      <ZoomControl position='bottomright' />
+      <AutoZoom bounds={markerArr} />
     </MapContainer >
   )
 }

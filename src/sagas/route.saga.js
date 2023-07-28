@@ -6,7 +6,6 @@ function* fetchRouteWorker(action) {
   const data = action.payload;
   const resOSRM = yield call(routeApi.getRoute, { data });
   const polylineCoordinates = yield resOSRM.routes[0].geometry.coordinates;
-  console.log(polylineCoordinates)
   yield put(addCurrentRoute(polylineCoordinates));
 }
 

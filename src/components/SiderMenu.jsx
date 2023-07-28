@@ -18,14 +18,14 @@ const SiderMenu = () => {
   }
 
   return (
-    <Sider>
+    <Sider style={{ background: 'white' }}>
       <Menu
         theme='light'
         mode='inline'
         onClick={onClick}
         items={routesList.map((route, index) => ({
           key: String(index + 1),
-          label: `Маршрут ${route[index].info}`,
+          label: `Маршрут ${index + 1}`,
         })
         )}
       />
