@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Leaflet-OSRM/static/css/main.e35ee67e.css",
-    "main.js": "/Leaflet-OSRM/static/js/main.ba5a0ad3.js",
+    "main.js": "/Leaflet-OSRM/static/js/main.cd421e4b.js",
     "static/media/map_marker_icon.svg": "/Leaflet-OSRM/static/media/map_marker_icon.27bf17ff7363f7ef64d2621172d43385.svg",
     "index.html": "/Leaflet-OSRM/index.html",
     "main.e35ee67e.css.map": "/Leaflet-OSRM/static/css/main.e35ee67e.css.map",
-    "main.ba5a0ad3.js.map": "/Leaflet-OSRM/static/js/main.ba5a0ad3.js.map"
+    "main.cd421e4b.js.map": "/Leaflet-OSRM/static/js/main.cd421e4b.js.map"
   },
   "entrypoints": [
     "static/css/main.e35ee67e.css",
-    "static/js/main.ba5a0ad3.js"
+    "static/js/main.cd421e4b.js"
   ]
 }
