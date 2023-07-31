@@ -1,4 +1,4 @@
-const BASE_URL = 'http://router.project-osrm.org'
+const BASE_URL = 'https://router.project-osrm.org'
 
 export const _responceProcessing = (res) => (res.ok)
   ? res.json()
